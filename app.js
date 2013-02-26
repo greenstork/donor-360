@@ -5,7 +5,32 @@
 
 var express = require('express'),
   routes = require('./routes'),
-  api = require('./routes/api');
+  api = require('./routes/api'), 
+  util = require('util')
+  . async = require('async'),
+  nforce = require('nforce');
+
+var oauth;
+var port = process.env.PORT || 3000;
+
+// use the nforce package to create a connection to salesforce.com
+var org = nforce.createConnection({
+  clientId: process.env.CLIENT_ID,
+  clientSecret: process.env.CLIENT_SECRET,
+  redirectUri: 'http://localhost:' + port + '/oauth/_callback',
+  apiVersion: 'v24.0',  // optional, defaults to v24.0
+  environment: 'production'  // optional, sandbox or production, production default
+});
+
+// authenticate using username-password oauth flow
+org.authenticate({ username: process.env.USERNAME, password: process.env.PASSWORD }, function(err, resp){
+  if(err) {
+    console.log('Error: ' + err.message);
+  } else {
+    console.log('Access Token: ' + resp.access_token);
+    oauth = resp;
+  }
+});
 
 var app = module.exports = express.createServer();
 
@@ -32,15 +57,6 @@ app.configure('production', function(){
   app.use(express.errorHandler());
 });
 
-// oAuth Configuration
-var org = nforce.createConnection({
-  clientId: 'SOME_OAUTH_CLIENT_ID',
-  clientSecret: 'SOME_OAUTH_CLIENT_SECRET',
-  redirectUri: 'http://localhost:3000/oauth/_callback',
-  apiVersion: 'v24.0',  // optional, defaults to v24.0
-  environment: 'production'  // optional, sandbox or production, production default
-});
-
 // Routes
 
 app.get('/', routes.index);
@@ -59,7 +75,6 @@ app.delete('/api/post/:id', api.deletePost);
 app.get('*', routes.index);
 
 // Start server
-var port = process.env.PORT || 3000;
 app.listen(port, function(){
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
 });
