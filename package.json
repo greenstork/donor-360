@@ -8,7 +8,11 @@
     "nforce": "~0.2.5",
     "jade": "~0.28.1",
     "routes": "~0.1.1"
-  },
+  }, 
+  "engines": {
+      "node": "~0.8.21",
+      "npm": "~1.2.12"
+  }
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
