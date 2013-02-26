@@ -14,13 +14,13 @@ var app = module.exports = express.createServer();
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
-  app.set('view options', {
-    layout: false
-  });
   app.use(express.bodyParser());
   app.use(express.methodOverride());
-  app.use(express.static(__dirname + '/public'));
+  app.use(express.cookieParser());
+  app.use(express.session({ secret: 'nforce testing baby' }));
+  app.use(org.expressOAuth({onSuccess: '/home', onError: '/oauth/error'}));  // <--- nforce middleware
   app.use(app.router);
+  app.use(express.static(__dirname + '/public'));
 });
 
 
@@ -30,6 +30,15 @@ app.configure('development', function(){
 
 app.configure('production', function(){
   app.use(express.errorHandler());
+});
+
+// oAuth Configuration
+var org = nforce.createConnection({
+  clientId: 'SOME_OAUTH_CLIENT_ID',
+  clientSecret: 'SOME_OAUTH_CLIENT_SECRET',
+  redirectUri: 'http://localhost:3000/oauth/_callback',
+  apiVersion: 'v24.0',  // optional, defaults to v24.0
+  environment: 'production'  // optional, sandbox or production, production default
 });
 
 // Routes
