@@ -1,9 +1,21 @@
 {
-    "name": "application-name"
-  , "version": "0.0.1"
-  , "private": true
-  , "dependencies": {
-      "express": "2.5.10"
-    , "jade": ">= 0.0.1"
-  }
+  "name": "donor-360",
+  "version": "0.0.0",
+  "description": "Donor360 app built on Node.js, nForce, and AngularJS",
+  "main": "app.js",
+  "dependencies": {
+    "express": "~2.5.10",
+    "nforce": "~0.2.5",
+    "jade": "~0.28.1",
+    "routes": "~0.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Dave Manelski",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "gitHead": "03d138412f9e894c1d3e8c592aca2cf367232703"
 }
