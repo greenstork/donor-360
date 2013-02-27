@@ -6,26 +6,27 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
     $routeProvider.
       when('/', {
         templateUrl: 'partials/index',
-        controller: IndexCtrl
+        controller: SearchCtrl
       }).
-      when('/addPost', {
-        templateUrl: 'partials/addPost',
-        controller: AddPostCtrl
+      when('/donor-info/:id', {
+        templateUrl: 'partials/donor-info',
+        controller: DonorInfoCtrl
       }).
-      when('/readPost/:id', {
-        templateUrl: 'partials/readPost',
-        controller: ReadPostCtrl
+      when('/donor-social/:id', {
+        templateUrl: 'partials/donor-social',
+        controller: DonorSocialCtrl
       }).
-      when('/editPost/:id', {
-        templateUrl: 'partials/editPost',
-        controller: EditPostCtrl
+      when('/donor-todo/:id', {
+        templateUrl: 'partials/donor-todo',
+        controller: DonorToDoCtrl
       }).
-      when('/deletePost/:id', {
-        templateUrl: 'partials/deletePost',
-        controller: DeletePostCtrl
+      when('/donor-timeline/:id', {
+        templateUrl: 'partials/donor-timeline',
+        controller: DonorTimelineCtrl
       }).
-      otherwise({
-        redirectTo: '/'
+      when('/oauth/authorize', {
+        redirect: 'oauth/authorize'
       });
+      
     $locationProvider.html5Mode(true);
   }]);

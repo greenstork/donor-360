@@ -2,59 +2,41 @@
 
 /* Controllers */
 
-function IndexCtrl($scope, $http) {
-  $http.get('/api/posts').
-    success(function(data, status, headers, config) {
+function SearchCtrl($scope, $http) {
+  $scope.searchInput = '';
+  $scope.search = function () {
+    $http.get('/api/search', $scope.searchInput).
+      success(function(data, status, headers, config) {
+        $scope.results = data.results;
+        console.log('SEARCH RESULTS RETURNED');
+      });
+  };
+}
+
+function DonorInfoCtrl($scope, $http, $routeParams) {
+  $http.get('/api/donor-info', $routeParams.id).
+    success(function(data) {
+      $scope.donorInfo = data.donorInfo;
+    });
+}
+
+function DonorSocialCtrl($scope, $http, $routeParams) {
+  $http.get('/api/donor-social', $routeParams.id).
+    success(function(data) {
       $scope.posts = data.posts;
     });
 }
 
-function AddPostCtrl($scope, $http, $location) {
-  $scope.form = {};
-  $scope.submitPost = function () {
-    $http.post('/api/post', $scope.form).
-      success(function(data) {
-        $location.path('/');
-      });
-  };
-}
-
-function ReadPostCtrl($scope, $http, $routeParams) {
-  $http.get('/api/post/' + $routeParams.id).
+function DonorToDoCtrl($scope, $http, $routeParams) {
+  $http.get('/api/donor-todo', $routeParams.id).
     success(function(data) {
-      $scope.post = data.post;
+      $scope.todoItems = data.items;
     });
 }
 
-function EditPostCtrl($scope, $http, $location, $routeParams) {
-  $scope.form = {};
-  $http.get('/api/post/' + $routeParams.id).
+function DonorTimelineCtrl($scope, $http, $routeParams) {
+  $http.get('/api/donor-timeline', $routeParams.id).
     success(function(data) {
-      $scope.form = data.post;
+      $scope.timeline = data.timeline;
     });
-
-  $scope.editPost = function () {
-    $http.put('/api/post/' + $routeParams.id, $scope.form).
-      success(function(data) {
-        $location.url('/readPost/' + $routeParams.id);
-      });
-  };
-}
-
-function DeletePostCtrl($scope, $http, $location, $routeParams) {
-  $http.get('/api/post/' + $routeParams.id).
-    success(function(data) {
-      $scope.post = data.post;
-    });
-
-  $scope.deletePost = function () {
-    $http.delete('/api/post/' + $routeParams.id).
-      success(function(data) {
-        $location.url('/');
-      });
-  };
-
-  $scope.home = function () {
-    $location.url('/');
-  };
 }

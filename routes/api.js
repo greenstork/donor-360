@@ -14,64 +14,81 @@ var data = {
       "title": "Sed egestas",
       "text": "Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus."
     }
+  ],
+
+  "donorInfo": [
+    {
+      "title": "Lorem ipsum",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "title": "Sed egestas",
+      "text": "Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus."
+    }
+  ],
+
+  "results": [
+    {
+      "title": "Lorem ipsum",
+      "text": "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+    },
+    {
+      "title": "Sed egestas",
+      "text": "Sed egestas, ante et vulputate volutpat, eros pede semper est, vitae luctus metus libero eu augue. Morbi purus libero, faucibus adipiscing, commodo quis, gravida id, est. Sed lectus."
+    }
   ]
 };
 
 // GET
 
-exports.posts = function (req, res) {
-  var posts = [];
-  data.posts.forEach(function (post, i) {
-    posts.push({
-      id: i,
-      title: post.title,
-      text: post.text.substr(0, 50) + '...'
-    });
-  });
+exports.search = function (req, res) {
+  var results = [];
+  console.log(req.session.oauth);
   res.json({
-    posts: posts
+    results: results
   });
 };
 
-exports.post = function (req, res) {
+exports.getDonorInfo = function (req, res) {
+  var id = req.params.id;
+  if (id >= 0 && id < data.donorInfo.length) {
+    res.json({
+      donorInfo: data.donorInfo
+    });
+  } else {
+    res.json(false);
+  }
+};
+
+
+exports.getDonorSocial = function (req, res) {
   var id = req.params.id;
   if (id >= 0 && id < data.posts.length) {
     res.json({
-      post: data.posts[id]
+      posts: data.posts
     });
   } else {
     res.json(false);
   }
 };
 
-// POST
-
-exports.addPost = function (req, res) {
-  data.posts.push(req.body);
-  res.json(req.body);
-};
-
-// PUT
-
-exports.editPost = function (req, res) {
+exports.getDonorToDos = function (req, res) {
   var id = req.params.id;
-
   if (id >= 0 && id < data.posts.length) {
-    data.posts[id] = req.body;
-    res.json(true);
+    res.json({
+      items: data.posts
+    });
   } else {
     res.json(false);
   }
 };
 
-// DELETE
-
-exports.deletePost = function (req, res) {
+exports.getDonorTimeline = function (req, res) {
   var id = req.params.id;
-
   if (id >= 0 && id < data.posts.length) {
-    data.posts.splice(id, 1);
-    res.json(true);
+    res.json({
+      timeline: data.posts
+    });
   } else {
     res.json(false);
   }
