@@ -1,3 +1,21 @@
-h2 Donor Info
-p This is my donor info page
-div
+div.navbar.navbar-fixed-top.navbar-inverse
+  div.navbar-inner(style='padding: 0 20px;')
+    a.btn.btn-navbar(data-toggle='collapse',data-target='.navbar-responsive-collapse')
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+      span.icon-bar
+    a.brand(href='#') DonorView
+    div.nav-collapse.collapse.navbar-responsive-collapse
+      ul.nav
+        li.active
+          a(href='#') Info
+        li
+          a(href='#') Timeline
+        li
+          a(href='#') Social
+        li
+          a(href='#') To Do
+div.container
+  p This is my Donor Info
+  p First name: {{info.FirstName}}, Last Name: {{info.LastName}}, Phone: {{info.Phone}}, Email: {{info.Email}}

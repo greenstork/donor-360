@@ -1,9 +1,7 @@
 extends layout
 
 block body
-  #content
-    a(btn btn-large btn-block btn-primary href='/oauth/authorize') Login
-    #view(ng-view)
+  div(ng-view)
 
   script(src='js/lib/angular/angular.js')
   script(src='js/app.js')

@@ -1,7 +1,14 @@
-h2 Find Donor
-input(ng-model='searchInput', name='searchInput')
-button(ng-click='search()') Search
-
-section
-ul
-  li(ng-repeat='result in results') a(href='/donor-info/{{result.id}}') {{result.FirstName}} {{results.LastName}}
+div.navbar.navbar-fixed-top.navbar-inverse
+  div.navbar-inner(style='padding: 0 20px;')
+    a.brand(href='#') DonorView          
+div.container
+  div.well
+    input.search-query(type='text', placeholder='Search', ng-model='searchInput', style='margin-right:5px;')
+    button.btn.btn-inverse.btn-small(type='submit', ng-click='search(searchInput)') 
+      i.icon-search.icon-white
+  p
+    a.btn.btn-large.btn-block(href='/oauth/authorize') Login
+  section
+  ul.nav.nav-tabs.nav-stacked
+    li(ng-repeat='result in results') 
+      a(ng-href='/donor-info/{{result.Id}}') {{result.FirstName}} {{result.LastName}}

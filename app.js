@@ -49,7 +49,7 @@ app.get('/oauth/authorize', function(req, res){
 
 // JSON API
 
-app.get('/api/search', api.search);
+app.get('/api/search/:searchInput', api.search);
 
 app.get('/api/donor-info/:id', api.getDonorInfo);
 app.get('/api/donor-social/:id', api.getDonorSocial);

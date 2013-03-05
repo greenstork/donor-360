@@ -8,6 +8,10 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
         templateUrl: 'partials/index',
         controller: SearchCtrl
       }).
+      when('/login', {
+        templateUrl: 'partials/login',
+        controller: LoginCtrl
+      }).
       when('/donor-info/:id', {
         templateUrl: 'partials/donor-info',
         controller: DonorInfoCtrl
@@ -23,9 +27,6 @@ angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives'])
       when('/donor-timeline/:id', {
         templateUrl: 'partials/donor-timeline',
         controller: DonorTimelineCtrl
-      }).
-      when('/oauth/authorize', {
-        redirect: 'oauth/authorize'
       });
       
     $locationProvider.html5Mode(true);
