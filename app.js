@@ -6,8 +6,8 @@ var express = require('express'),
 var app = module.exports = express.createServer();
 
 var org = nforce.createConnection({
-  clientId: '3MVG9rFJvQRVOvk6_n2pzKrRV2ru3BmcagvHlDKWKl_OD1G3Xyq5rRn4DVeeOdLlSC.NfxFjiG2iq6qLwBUGz',
-  clientSecret: '8222817255741332338',
+  clientId: 'XXXFOOO',
+  clientSecret: 'SECRETXXXX0000000',
   redirectUri: 'http://localhost:3000/oauth/_callback'
 });
 
